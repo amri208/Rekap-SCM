@@ -42,7 +42,7 @@ if uploaded_file is not None:
       zip_ref.extractall()
       
     dfs=[]
-    for file in os.listdir(''):
+    for file in os.listdir():
         if file.endswith('.xlsx'):
                 df = pd.read_excel(file, sheet_name='REKAP MENTAH')
                 df = df.loc[:,[x for x in df.columns if 'Unnamed' not in x][:-1]].fillna('')
