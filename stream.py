@@ -33,7 +33,8 @@ def to_excel(df):
 def get_current_time_gmt7():
     tz = pytz.timezone('Asia/Jakarta')
     return dt.datetime.now(tz).strftime('%Y%m%d_%H%M%S')
-
+    
+st.title('Rekap SCM')
 st.markdown('### Upload file *Zip')
 uploaded_file = st.file_uploader("Pilih file ZIP", type="zip")
 
