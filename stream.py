@@ -9,6 +9,7 @@ import pytz
 import requests
 import os
 import zipfile
+from xlsxwriter import Workbook
 
 def to_excel(df):
     output = BytesIO()
