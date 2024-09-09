@@ -49,8 +49,8 @@ if uploaded_file is not None:
         for file in os.listdir(tmpdirname):
             if file.endswith('.xlsx'):
                     df = pd.read_excel(tmpdirname+'/'+file, sheet_name='REKAP MENTAH')
-                    df = df.loc[:,[x for x in df.columns if 'Unnamed' not in x][:-1]].fillna('')
-                    df['NAMA RESTO'] = file.split(' - ')[0]
+                    df = df.loc[:,[x for x in df.columns if 'Unnamed' not in str(x)][:-1]].fillna('')
+                    df['NAMA RESTO'] = file.split('-')[0]
                     dfs.append(df)
               
         dfs = pd.concat(dfs, ignore_index=True)
