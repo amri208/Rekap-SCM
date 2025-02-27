@@ -15,7 +15,7 @@ import tempfile
 def to_excel(df, sheet='Sheet1'):
     output = BytesIO()
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
-        df.to_excel(writer, index=False, sheet_name='Sheet1')
+        df.to_excel(writer, index=False, sheet_name=sheet)
 
         # Mengakses workbook dan worksheet untuk format header
         workbook = writer.book
