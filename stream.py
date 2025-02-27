@@ -12,14 +12,14 @@ import zipfile
 from xlsxwriter import Workbook
 import tempfile
 
-def to_excel(df):
+def to_excel(df, sheet='Sheet1'):
     output = BytesIO()
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
         df.to_excel(writer, index=False, sheet_name='Sheet1')
 
         # Mengakses workbook dan worksheet untuk format header
         workbook = writer.book
-        worksheet = writer.sheets['Sheet1']
+        worksheet = writer.sheets[sheet]
         
         # Menambahkan format khusus untuk header
         header_format = workbook.add_format({'border': 0, 'bold': False, 'font_size': 12})
@@ -57,12 +57,13 @@ if uploaded_file is not None:
                 for file in os.listdir(tmpdirname):
                     if file.endswith('.xlsx'):
                             df = pd.read_excel(tmpdirname+'/'+file, sheet_name='REKAP MENTAH')
-                            df = df.loc[:,[x for x in df.columns if 'Unnamed' not in str(x)][:-1]].fillna('')
-                            df['NAMA RESTO'] = file.split('-')[0]
+                            if 'NAMA RESTO' not in df.columns:
+                                df = df.loc[:,[x for x in df.columns if 'Unnamed' not in str(x)][:-1]].fillna('')
+                                df['NAMA RESTO'] = file.split('-')[0]
                             dfs.append(df)
                       
                 dfs = pd.concat(dfs, ignore_index=True)
-                excel_data = to_excel(dfs)
+                excel_data = to_excel(dfs,'REKAP MENTAH')
                 st.download_button(
                     label="Download Excel",
                     data=excel_data,
