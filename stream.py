@@ -12,14 +12,14 @@ import zipfile
 from xlsxwriter import Workbook
 import tempfile
 
-def to_excel(df):
+def to_excel(df, sheet_name='Sheet1'):
     output = BytesIO()
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
-        df.to_excel(writer, index=False, sheet_name='Sheet1')
+        df.to_excel(writer, index=False, sheet_name=sheet_name)
 
         # Mengakses workbook dan worksheet untuk format header
         workbook = writer.book
-        worksheet = writer.sheets['Sheet1']
+        worksheet = writer.sheets[sheet_name]
         
         # Menambahkan format khusus untuk header
         header_format = workbook.add_format({'border': 0, 'bold': False, 'font_size': 12})
@@ -63,7 +63,7 @@ if uploaded_file is not None:
                             dfs.append(df)
                       
                 dfs = pd.concat(dfs, ignore_index=True)
-                excel_data = to_excel(dfs)
+                excel_data = to_excel(dfs, sheet_name="REKAP MENTAH")
                 st.download_button(
                     label="Download Excel",
                     data=excel_data,
