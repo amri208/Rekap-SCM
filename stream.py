@@ -63,7 +63,7 @@ if uploaded_file is not None:
                             dfs.append(df)
                       
                 dfs = pd.concat(dfs, ignore_index=True)
-                excel_data = to_excel(dfs,'REKAP MENTAH')
+                excel_data = to_excel(dfs,sheet='REKAP MENTAH')
                 st.download_button(
                     label="Download Excel",
                     data=excel_data,
